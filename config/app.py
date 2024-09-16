@@ -1,0 +1,7 @@
+name = ""
+description = ""
+version = ""
+repository = ""
+author_name = ""
+author_github = ""
+author_email = ""

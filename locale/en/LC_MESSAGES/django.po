@@ -1,0 +1,108 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-06-11 19:02+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: app/account/models.py:13
+msgid "Code"
+msgstr ""
+
+#: app/account/models.py:14
+msgid "Key"
+msgstr ""
+
+#: app/account/models.py:15
+msgid "The time it was created"
+msgstr ""
+
+#: app/account/serializers/LoginSerializer.py:9 app/account/views/jwt.py:15
+msgid "Email or password is incorrect."
+msgstr ""
+
+#: app/account/serializers/LoginSerializer.py:14
+msgid "Email"
+msgstr ""
+
+#: app/account/serializers/LoginSerializer.py:17
+msgid "Password"
+msgstr ""
+
+#: app/account/serializers/LoginSerializer.py:33
+msgid "Must include 'username' and 'password'."
+msgstr ""
+
+#: app/account/serializers/RegisterSerializer.py:26
+#: app/account/serializers/UpdateUserSerializer.py:32
+msgid "Password fields didn't match"
+msgstr ""
+
+#: app/account/serializers/RegisterSerializer.py:32
+#: app/account/serializers/UpdateUserSerializer.py:38
+msgid ""
+"The password must be at least 6 characters long and contain at least one "
+"uppercase letter, one lowercase letter, one digit, and one special character "
+"(#?!@$%^&*-)."
+msgstr ""
+
+#: app/account/serializers/VerificationCodeSerializer.py:9
+msgid "The verification code is invalid."
+msgstr ""
+
+#: app/account/serializers/VerificationCodeSerializer.py:15
+msgid "The verification key is invalid."
+msgstr ""
+
+#: app/user/admin.py:17
+msgid "Personal info"
+msgstr ""
+
+#: app/user/admin.py:26
+msgid "Permissions"
+msgstr ""
+
+#: app/user/admin.py:37
+msgid "Important dates"
+msgstr ""
+
+#: app/user/forms.py:24
+msgid "This email has already been taken."
+msgstr ""
+
+#: app/user/models.py:12
+msgid "Name of User"
+msgstr ""
+
+#: app/user/models.py:14
+msgid "Email Address"
+msgstr ""
+
+#: app/user/models.py:18
+msgid "Email Verified"
+msgstr ""
+
+#: app/user/models.py:19
+msgid "Avatar"
+msgstr ""
+
+#: config/settings/base.py:28
+msgid "English"
+msgstr ""
+
+#: config/settings/base.py:29
+msgid "Arabic"
+msgstr ""
