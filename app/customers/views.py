@@ -11,7 +11,7 @@ User = get_user_model()
 
 class CustomerViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = CustomerSerializer
-    permission_classes = [IsAdminUser]
+    permission_classes = [IsAuthenticated, IsAdminUser]
 
     def get_queryset(self):
         return User.objects.filter(role=User.CUSTOMER)
