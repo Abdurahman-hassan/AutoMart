@@ -1,0 +1,1405 @@
+{
+	"info": {
+		"_postman_id": "dd6db17e-8707-4921-9f8e-f1dae1be82cd",
+		"name": "AutoMart",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12531037"
+	},
+	"item": [
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "auth",
+					"item": [
+						{
+							"name": "register",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Abdo Does\",\n    \"username\": \"abdoooe3\",\n    \"email\": \"{{user_email}}\",\n    \"password\": \"{{user_pass}}\",\n    \"password2\":  \"{{user_pass}}\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8080/en/auth/register/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"en",
+										"auth",
+										"register",
+										""
+									]
+								},
+								"description": "### Register User\n\nThis endpoint allows you to register a new user with the provided information.\n\n#### Request Body\n\n- `name`: (string) The name of the user.\n    \n- `username`: (string) The username for the user.\n    \n- `email`: (string) The email address of the user.\n    \n- `password`: (string) The password for the user's account.\n    \n- `password2`: (string) The confirmation of the password.\n    \n\n#### Response\n\nUpon successful registration, the server will respond with a status code of 201 and a JSON object containing the following fields:\n\n- `id`: (number) The unique identifier for the user.\n    \n- `name`: (string) The name of the user.\n    \n- `username`: (string) The username of the user.\n    \n- `email`: (object) An object containing the user's email information, including the value and verification status.\n    \n- `avatar`: (string) The avatar of the user.\n    \n- `is_superuser`: (boolean) Indicates if the user has superuser privileges.\n    \n- `date_joined`: (string) The date when the user account was created.\n    \n- `last_login`: (string) The date of the user's last login, if available.\n    \n- `groups`: (array) An array of groups the user belongs to.\n    \n- `role`: (string) The role assigned to the user."
+							},
+							"response": []
+						},
+						{
+							"name": "register_with_admin_token",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token_admin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Ahmed\",\n    \"username\": \"ahmedhassan\",\n    \"email\": \"ahmed@autopia.com\",\n    \"password\": \"{{user_pass}}\",\n    \"password2\":  \"{{user_pass}}\",\n    \"role\":\"salesman\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8080/en/auth/register/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"en",
+										"auth",
+										"register",
+										""
+									]
+								},
+								"description": "### HTTP POST /en/auth/register/\n\nThis endpoint is used to register a new user.\n\nif you registered with admin token you shold enter a role  \nfrom choices  \n\"salesman\" or \"delivery\"\n\n#### Request Body\n\n- `name` (string, required): The name of the user.\n    \n- `username` (string, required): The username for the user.\n    \n- `email` (string, required): The email address of the user.\n    \n- `password` (string, required): The password for the user's account.\n    \n- `password2` (string, required): Confirmation of the password.\n    \n- `role` (string, required): The role of the user. If registered with an admin token, the role should be either \"salesman\" or \"delivery\".\n    \n\n#### Response\n\nThe response will contain the status of the registration request."
+							},
+							"response": []
+						},
+						{
+							"name": "login_jwt",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "email",
+											"value": "{{admin_email}}",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "password",
+											"value": "{{admin_pass}}",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "email",
+											"value": "{{user_email}}",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "{{user_pass}}",
+											"type": "text"
+										},
+										{
+											"key": "email",
+											"value": "ahmed@autopia.com",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "password",
+											"value": "SecurePass123!",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8080/en/auth/jwt/token/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"en",
+										"auth",
+										"jwt",
+										"token",
+										""
+									]
+								},
+								"description": "### Request\n\nThis endpoint is used to generate access and refresh tokens by sending the email and password in the request body.\n\n#### Request Body\n\n- email (text) - The email of the user.\n    \n- password (text) - The password of the user.\n    \n\n### Response\n\nThe response is in JSON format with the following schema:\n\n``` json\n{\n    \"refresh\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTcyNjk2OTIwNywiaWF0IjoxNzI2NTM3MjA3LCJqdGkiOiI4NmMxZWNmOWY1NTQ0YzQyYTk4YTIyZjY4NGM0ZmEwZCIsInVzZXJfaWQiOjEyfQ.VufKNMWVqTrsmMIC5K9WhmBWM2Is0XLDLBqsjFmHERI\",\n    \"access\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI2NTQwMjA3LCJpYXQiOjE3MjY1MzcyMDcsImp0aSI6IjBiYTdjMjdmMTUwZjRiZGViMGM2NGFjYTU3MTA5NzIyIiwidXNlcl9pZCI6MTJ9.8dOsJ1bI7sakuEZEIge3wyJBH6c78FlkGDWPVS-afrM\"\n}\n\n ```\n\nThe response returns a status code of 200 and includes the access and refresh tokens in the JSON format."
+							},
+							"response": []
+						},
+						{
+							"name": "token_refresh",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "refresh",
+											"value": "{{refresh_token_user}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8080/en/auth/jwt/token/refresh/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"en",
+										"auth",
+										"jwt",
+										"token",
+										"refresh",
+										""
+									]
+								},
+								"description": "this endpoint generate a new access token if expired"
+							},
+							"response": []
+						},
+						{
+							"name": "token_verify",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "token",
+											"value": "{{access_token_admin}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8080/en/auth/jwt/token/verify/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"en",
+										"auth",
+										"jwt",
+										"token",
+										"verify",
+										""
+									]
+								},
+								"description": "this end point verify the token is valid or not"
+							},
+							"response": []
+						},
+						{
+							"name": "login_session",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "email",
+											"value": "{{user_email}}",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "{{user_pass}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8080/en/auth/session/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"en",
+										"auth",
+										"session",
+										""
+									]
+								},
+								"description": "login with session"
+							},
+							"response": []
+						}
+					],
+					"description": "This folder contains the authentication methoeds"
+				},
+				{
+					"name": "user_me(info)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token_admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI0MTI3MzQyLCJpYXQiOjE3MjQxMjY0NDIsImp0aSI6ImIwNGFjOTEyMmU3OTRmZDI4NjcyOTA2OTAxMzEyMTBmIiwidXNlcl9pZCI6MX0.EpsAkRkTzQHrHanKGoj1FdplumR8c1581ffVnWdDRLc",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:8080/en/user/me/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"en",
+								"user",
+								"me",
+								""
+							]
+						},
+						"description": "get user info"
+					},
+					"response": []
+				},
+				{
+					"name": "update_user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token_user}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"email\": \"{{user_email}}\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/en/user/update/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"en",
+								"user",
+								"update",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "send_user_mail",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token_user}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8080/en/user/email/code/send",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"en",
+								"user",
+								"email",
+								"code",
+								"send"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "verify_mail",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token_user}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"code\":\"3rze1h\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/en/user/email/code/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"en",
+								"user",
+								"email",
+								"code",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "reset_password_send_code",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"{{user_email}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/en/user/reset_password/code/send/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"en",
+								"user",
+								"reset_password",
+								"code",
+								"send",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "reset_password_verify_code",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"{{user_email}}\",\n    \"code\":\"bopcm6\"\n    \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/en/user/reset_password/code/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"en",
+								"user",
+								"reset_password",
+								"code",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "final_reset",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"key\":\"7668548404a2b925dc3da2f83d284a635a40aa51\",\n    \"email\": \"{{user_email}}\",\n    \"password\": \"Abdelrahman3322_489$\",\n    \"password2\": \"Abdelrahman3322_489$\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/en/user/reset_password/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"en",
+								"user",
+								"reset_password",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Useres folder that contain the authentication methoeds and other verifications methods"
+		},
+		{
+			"name": "Products Management",
+			"item": [
+				{
+					"name": "create product",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token_admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"sku\": \"12345678\",\n  \"name\": \"Product A\",\n  \"description\": \"This is product A\",\n  \"price\": 50,\n  \"stock\": 100\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/en/products/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"en",
+								"products",
+								""
+							]
+						},
+						"description": "admin only can add products"
+					},
+					"response": []
+				},
+				{
+					"name": "get product",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/en/products/20/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"en",
+								"products",
+								"20",
+								""
+							]
+						},
+						"description": "### GET /en/products/20/\n\nThis endpoint retrieves product information for the specified product ID.\n\n#### Request Body\n\nThis request does not require a request body.\n\n#### Response Body\n\nThe response will be in JSON format and will contain the following fields:\n\n- `id` (number): The unique identifier of the product.\n    \n- `sku` (string): The stock keeping unit code of the product.\n    \n- `name` (string): The name of the product.\n    \n- `description` (string): A description of the product.\n    \n- `price` (string): The price of the product.\n    \n- `stock` (number): The available stock quantity of the product.\n    \n- `created_at` (string): The timestamp of when the product was created.\n    \n- `updated_at` (string): The timestamp of when the product was last updated.\n    \n\n``` json\n{\n  \"id\": 20,\n  \"sku\": \"82791841\",\n  \"name\": \"82791841\",\n  \"description\": \"Far trouble class mouth wife cut. Teacher move line other throughout develop paper.\\nLeg call offer buy. Success pretty hotel nice. Address one white force image score try sound\",\n  \"price\": \"64.00\",\n  \"stock\": 83,\n  \"created_at\": \"2024-09-17T00:34:28.810330Z\",\n  \"updated_at\": \"2024-09-17T00:34:28.892163Z\"\n}\n\n ```"
+					},
+					"response": []
+				},
+				{
+					"name": "list products",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/en/products/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"en",
+								"products",
+								""
+							]
+						},
+						"description": "### GET /en/products/\n\nThis endpoint retrieves a list of products in English.\n\n#### Request\n\nNo request body is required for this endpoint.\n\n#### Response\n\nThe response will be in JSON format with the following schema:\n\n``` json\n{\n    \"type\": \"object\",\n    \"properties\": {\n        \"count\": {\n            \"type\": \"integer\"\n        },\n        \"next\": {\n            \"type\": [\"string\", \"null\"]\n        },\n        \"previous\": {\n            \"type\": [\"string\", \"null\"]\n        },\n        \"results\": {\n            \"type\": \"array\",\n            \"items\": {\n                \"type\": \"object\",\n                \"properties\": {\n                    \"id\": {\n                        \"type\": \"integer\"\n                    },\n                    \"sku\": {\n                        \"type\": \"string\"\n                    },\n                    \"name\": {\n                        \"type\": \"string\"\n                    },\n                    \"description\": {\n                        \"type\": \"string\"\n                    },\n                    \"price\": {\n                        \"type\": \"string\"\n                    },\n                    \"stock\": {\n                        \"type\": \"integer\"\n                    },\n                    \"created_at\": {\n                        \"type\": \"string\"\n                    },\n                    \"updated_at\": {\n                        \"type\": \"string\"\n                    }\n                }\n            }\n        }\n    }\n}\n\n ```"
+					},
+					"response": []
+				},
+				{
+					"name": "update product",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token_admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"sku\": \"123456784\",\n  \"name\": \"Product A+\",\n  \"description\": \"This is product A+\",\n  \"price\": 50,\n  \"stock\": 100\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/en/products/22/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"en",
+								"products",
+								"22",
+								""
+							]
+						},
+						"description": "### Update Product Information\n\nThis endpoint is used to update the information of a specific product.\n\n#### Request Body\n\n- `sku` (string): The stock keeping unit of the product.\n    \n- `name` (string): The name of the product.\n    \n- `description` (string): A brief description of the product.\n    \n- `price` (number): The price of the product.\n    \n- `stock` (number): The available stock of the product.\n    \n\n#### Response\n\nUpon a successful update, the endpoint returns a JSON object with the updated details of the product, including the following fields:\n\n- `id` (number): The unique identifier of the product.\n    \n- `sku` (string): The updated stock keeping unit of the product.\n    \n- `name` (string): The updated name of the product.\n    \n- `description` (string): The updated description of the product.\n    \n- `price` (string): The updated price of the product.\n    \n- `stock` (number): The updated available stock of the product.\n    \n- `created_at` (string): The timestamp of the product's creation.\n    \n- `updated_at` (string): The timestamp of the product's last update."
+					},
+					"response": []
+				},
+				{
+					"name": "delete product",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token_admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/en/products/20/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"en",
+								"products",
+								"20",
+								""
+							]
+						},
+						"description": "### DELETE /en/products/21/\n\nThis endpoint is used to delete a specific product with the ID 21.\n\n#### Request Body\n\nThis request does not require a request body.\n\n#### Response\n\nUpon a successful deletion, the server returns a 204 status code with no content in the response body.\n\n#### JSON Schema\n\n``` json\n{}\n\n ```"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Sales Orders Management",
+			"item": [
+				{
+					"name": "create sales order",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token_user}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"product\": 1,\n  \"quantity\": 2,\n  \"price\": 100\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/en/sales_orders/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"en",
+								"sales_orders",
+								""
+							]
+						},
+						"description": "### Request\n\nThis endpoint allows the admin to add sales orders.\n\n#### Request Body\n\n- `product` (number): The ID of the product.\n    \n- `quantity` (number): The quantity of the product.\n    \n- `price` (number): The price of the product.\n    \n\n### Response\n\nThe response will be in JSON format with the following schema:\n\n``` json\n{\n    \"id\": 20,\n    \"customer\": 12,\n    \"product\": 1,\n    \"quantity\": 2,\n    \"price\": \"100.00\",\n    \"sale_date\": \"2024-09-17T01:53:54.978077Z\"\n}\n\n ```\n\nThe response will have a status code of 201 and a content type of `application/json`."
+					},
+					"response": []
+				},
+				{
+					"name": "get sales order",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/en/products/20/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"en",
+								"products",
+								"20",
+								""
+							]
+						},
+						"description": "### GET /en/products/20/\n\nThis endpoint retrieves product information for the specified product ID.\n\n#### Request Body\n\nThis request does not require a request body.\n\n#### Response Body\n\nThe response will be in JSON format and will contain the following fields:\n\n- `id` (number): The unique identifier of the product.\n    \n- `sku` (string): The stock keeping unit code of the product.\n    \n- `name` (string): The name of the product.\n    \n- `description` (string): A description of the product.\n    \n- `price` (string): The price of the product.\n    \n- `stock` (number): The available stock quantity of the product.\n    \n- `created_at` (string): The timestamp of when the product was created.\n    \n- `updated_at` (string): The timestamp of when the product was last updated.\n    \n\n``` json\n{\n  \"id\": 20,\n  \"sku\": \"82791841\",\n  \"name\": \"82791841\",\n  \"description\": \"Far trouble class mouth wife cut. Teacher move line other throughout develop paper.\\nLeg call offer buy. Success pretty hotel nice. Address one white force image score try sound\",\n  \"price\": \"64.00\",\n  \"stock\": 83,\n  \"created_at\": \"2024-09-17T00:34:28.810330Z\",\n  \"updated_at\": \"2024-09-17T00:34:28.892163Z\"\n}\n\n ```"
+					},
+					"response": []
+				},
+				{
+					"name": "list sales order",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token_admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/en/sales_orders/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"en",
+								"sales_orders",
+								""
+							]
+						},
+						"description": "### GET /en/products/\n\nThis endpoint retrieves a list of products in English.\n\n#### Request\n\nNo request body is required for this endpoint.\n\n#### Response\n\nThe response will be in JSON format with the following schema:\n\n``` json\n{\n    \"type\": \"object\",\n    \"properties\": {\n        \"count\": {\n            \"type\": \"integer\"\n        },\n        \"next\": {\n            \"type\": [\"string\", \"null\"]\n        },\n        \"previous\": {\n            \"type\": [\"string\", \"null\"]\n        },\n        \"results\": {\n            \"type\": \"array\",\n            \"items\": {\n                \"type\": \"object\",\n                \"properties\": {\n                    \"id\": {\n                        \"type\": \"integer\"\n                    },\n                    \"sku\": {\n                        \"type\": \"string\"\n                    },\n                    \"name\": {\n                        \"type\": \"string\"\n                    },\n                    \"description\": {\n                        \"type\": \"string\"\n                    },\n                    \"price\": {\n                        \"type\": \"string\"\n                    },\n                    \"stock\": {\n                        \"type\": \"integer\"\n                    },\n                    \"created_at\": {\n                        \"type\": \"string\"\n                    },\n                    \"updated_at\": {\n                        \"type\": \"string\"\n                    }\n                }\n            }\n        }\n    }\n}\n\n ```"
+					},
+					"response": []
+				},
+				{
+					"name": "delete sales order",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token_admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/en/sales_orders/18/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"en",
+								"sales_orders",
+								"18",
+								""
+							]
+						},
+						"description": "### DELETE /en/products/21/\n\nThis endpoint is used to delete a specific product with the ID 21.\n\n#### Request Body\n\nThis request does not require a request body.\n\n#### Response\n\nUpon a successful deletion, the server returns a 204 status code with no content in the response body.\n\n#### JSON Schema\n\n``` json\n{}\n\n ```"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Notifications",
+			"item": [
+				{
+					"name": "list_all",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token_admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8080/en/notifications/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"en",
+								"notifications",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get notification",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token_admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8080/en/notifications/3/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"en",
+								"notifications",
+								"3",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "remove notification",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token_admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8080/en/notifications/2/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"en",
+								"notifications",
+								"2",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Customers",
+			"item": [
+				{
+					"name": "list_customers",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token_admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8080/en/customers/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"en",
+								"customers",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "retrive customer",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token_admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8080/en/customers/1/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"en",
+								"customers",
+								"1",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Purchase Orders Mangment",
+			"item": [
+				{
+					"name": "do purchase",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token_admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"product\": 1,\n  \"quantity\": 10,\n  \"supplier_name\": \"Supplier A\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/en/purchase_orders/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"en",
+								"purchase_orders",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list purchase",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token_admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"product\": 1,\n  \"quantity\": 10,\n  \"supplier_name\": \"Supplier A\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/en/purchase_orders/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"en",
+								"purchase_orders",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "retrive purchase",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token_admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"product\": 1,\n  \"quantity\": 10,\n  \"supplier_name\": \"Supplier A\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/en/purchase_orders/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"en",
+								"purchase_orders",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete purchase",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token_admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/en/purchase_orders/2/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"en",
+								"purchase_orders",
+								"2",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "admin_email",
+			"value": "abdelrahman.hassan.hamdy@gmail.com",
+			"type": "string"
+		},
+		{
+			"key": "admin_pass",
+			"value": "Abdo123A",
+			"type": "string"
+		},
+		{
+			"key": "user_pass",
+			"value": "Abdelrahman3322_489$",
+			"type": "string"
+		},
+		{
+			"key": "user_email",
+			"value": "abdowbs02@gmail.com",
+			"type": "string"
+		},
+		{
+			"key": "access_token_admin",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI2NTUxODE2LCJpYXQiOjE3MjY1NDg4MTYsImp0aSI6ImE4ODMxZDA5NTNjMDRkY2ZiNGUwODk2ZWNjODY4ZTliIiwidXNlcl9pZCI6MTF9.F1vZ37Rv6n77YIuvsbClQMUMifbM_KAzUNTs_4jaGag",
+			"type": "string"
+		},
+		{
+			"key": "refresh_token_admin",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTcyNjk1ODE5OSwiaWF0IjoxNzI2NTI2MTk5LCJqdGkiOiI1NTFmY2MwMWMxOTY0YjIxYmRiY2U1YzJlNTIwODM3YiIsInVzZXJfaWQiOjh9.pwH5J4ewyn1dAwLoMGRQVQWfqX1Q8JCHnnDKNs0JKHo",
+			"type": "string"
+		},
+		{
+			"key": "access_token_user",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI2NTUxNzk3LCJpYXQiOjE3MjY1NDg3OTcsImp0aSI6IjBlYjA1NTc3NWMwMDRmM2Q4MDJmYTI1NGQ2YzM2NTQ1IiwidXNlcl9pZCI6MTJ9.JoXDFet4JuJzlxq0WMGg3L9C4oHAip754j-Q2rFAHb8",
+			"type": "string"
+		},
+		{
+			"key": "refresh_token_user",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTcyNjg2NzM5OSwiaWF0IjoxNzI2NDM1Mzk5LCJqdGkiOiJlMDEwNzQ1ZjAwMTU0ZWJlYWY5MTY1YzAzMjQ1NzA3MSIsInVzZXJfaWQiOjR9.XGRW7eEQfjoswqCgh_H-O3KuEHfwknvdNkJgn6wReJc",
+			"type": "string"
+		},
+		{
+			"key": "access_token_another_user",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI2NTUxNzE1LCJpYXQiOjE3MjY1NDg3MTUsImp0aSI6IjY4Y2UzMDUxNTQ5ZDQ1NmU4ZjQyYTYyNjZkYzE3NTdhIiwidXNlcl9pZCI6MTN9.dKdUOJDzQfirdbD69gHwfwnm3jRTpOw4enZt5sBaRwg",
+			"type": "string"
+		}
+	]
+}
