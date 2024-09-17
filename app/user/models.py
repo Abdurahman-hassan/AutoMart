@@ -34,6 +34,7 @@ class User(AbstractUser):
         default=CUSTOMER,
         blank=True,
         null=True,
+        db_index=True,
     )
 
     USERNAME_FIELD = "email"
@@ -45,6 +46,7 @@ class User(AbstractUser):
         ordering = ["-email"]
         indexes = [
             models.Index(fields=["email"]),
+            models.Index(fields=["role"]),
         ]
 
     def save(self, *args, **kwargs):
