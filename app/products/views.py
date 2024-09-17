@@ -4,11 +4,9 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from app.products.models import Product
 from app.products.serializers import ProductSerializer
 from app.utils.permissions import IsAdminOrReadOnly
-from django.utils.decorators import method_decorator
-from django.views.decorators.cache import cache_page
 from django.core.cache import cache
 
-from config.settings.base import CACHE_TTL
+from app.utils.uniqe_caching import cached_response
 
 
 class ProductViewSet(viewsets.ModelViewSet):
@@ -21,18 +19,18 @@ class ProductViewSet(viewsets.ModelViewSet):
         description="Retrieve a list of all products",
         responses={200: ProductSerializer(many=True)},
     )
-    @method_decorator(cache_page(CACHE_TTL))
     def list(self, request, *args, **kwargs):
-        return super().list(request, *args, **kwargs)
+        queryset = self.get_queryset()
+        return cached_response(self, request, queryset, self.get_serializer_class(), 'products')
 
     @extend_schema(
         operation_id="Retrieve Product",
         description="Retrieve details of a specific product by SKU",
         responses={200: ProductSerializer},
     )
-    @method_decorator(cache_page(CACHE_TTL))
     def retrieve(self, request, *args, **kwargs):
-        return super().retrieve(request, *args, **kwargs)
+        obj = self.get_object()
+        return cached_response(self, request, obj, self.get_serializer_class(), 'product', is_single_object=True)
 
     @extend_schema(
         operation_id="Create Product",
