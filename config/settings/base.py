@@ -155,7 +155,7 @@ CACHES = {
 }
 
 # Cache time-to-live (TTL) in minutes.
-CACHE_TTL = 60 * 15  # 15 minutes
+CACHE_TTL = 60 * 10  # 10 minutes
 
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 # ===CELERY================================================
@@ -191,7 +191,7 @@ CELERY_TASK_SOFT_TIME_LIMIT = 60
 CELERY_BEAT_SCHEDULE = {
     'check-low-stock-every-hour': {
         'task': 'app.products.tasks.check_low_stock',
-        'schedule': 3600.0,  # Every hour
+        'schedule': 60 * 10,  # Every 10 minutes
     }
 }
 # https://docs.celeryq.dev/en/stable/userguide/configuration.html#beat-scheduler
