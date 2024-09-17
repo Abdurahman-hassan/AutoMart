@@ -9,9 +9,11 @@ This e-commerce backend system is built with Django and Django REST Framework (D
 - [Requirements](#requirements)
 - [Installation](#installation)
 - [Configuration](#configuration)
-- [Build_docker_images](#Build_docker_images)
+- [Build docker images](#Build_docker_images)
 - [Deployment](#Deployment)
 - [Postman Collection](#postman-collection)
+- [commands](#for_more_assisting_commands)
+- [new features not completed yet](#new_features_not_completed_yet)
 
 ## Requirements
 - Python 3.x
@@ -165,3 +167,11 @@ Notifications are created when product stock is low. The notification contains t
     2. Click "Import" and select the provided Postman collection.
     3. Test the available endpoints.
 
+## for_more_assisting_commands
+- kindly check the `justfile` for more commands and information.
+
+## new_features_not_completed_yet
+- The Delivery system is not completed yet.
+- The OAuth2.0 configuration is available but not in use.
+- The Payment system is not completed yet.
+- testing is not completed yet.
