@@ -118,6 +118,8 @@
 @collectstatic:
     python manage.py collectstatic --noinput
 
+@seed:
+    python manage.py seed_db
 # Start Celery worker
 [macos]
 [linux]

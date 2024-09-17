@@ -1,12 +1,13 @@
 from octos.handler.manager import Manager
 from .command import CreateSuperUser, DBConnect
-
+from .command.seed_db import SeedDB
 
 _manager = Manager()
 _manager.set_schema(
     {
         "createsuperuser": CreateSuperUser,
         "check_database": DBConnect,
+        "seed_db": SeedDB,
     }
 )
 
