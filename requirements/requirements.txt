@@ -496,3 +496,6 @@ django_celery_beat==2.7.0
 # The following packages are considered to be unsafe in a requirements file:
 # pip
 # setuptools
+
+django-oauth-toolkit==3.0.1
+    # via -r requirements.in
