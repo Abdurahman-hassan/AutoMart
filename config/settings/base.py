@@ -61,6 +61,7 @@ THIRD_PARTY_APPS = [
     "sentry_sdk",
     # ========
     "django_celery_beat",
+    "oauth2_provider",
 ]
 
 LOCAL_APPS = [
@@ -153,7 +154,7 @@ CACHES = {
     }
 }
 
-# Cache time-to-live (TTL) settings
+# Cache time-to-live (TTL) in minutes.
 CACHE_TTL = 60 * 15  # 15 minutes
 
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
@@ -200,12 +201,11 @@ CELERY_WORKER_SEND_TASK_EVENTS = True
 # https://docs.celeryq.dev/en/stable/userguide/configuration.html#std-setting-task_send_sent_event
 CELERY_TASK_SEND_SENT_EVENT = True
 
-
-
 # ===REST FRAMEWORK================================================
 REST_FRAMEWORK = {}
 
 REST_FRAMEWORK["DEFAULT_AUTHENTICATION_CLASSES"] = [
+    "oauth2_provider.contrib.rest_framework.OAuth2Authentication",
     "rest_framework.authentication.SessionAuthentication",
     "rest_framework_simplejwt.authentication.JWTAuthentication",
 ]
@@ -245,3 +245,13 @@ RESETPASSWORD_THROTTLING_IN = "hour"
 ENABLE_SOCIAL_LOGIN = env.bool("ENABLE_SOCIAL_LOGIN", default=False)
 # === THROTTLING ======================================================
 OCTO_OAUTH = {"google": env("OCTO_OAUTH_GOOGLE", default=None)}
+
+# === OAuth2 ======================================================
+OAUTH2_PROVIDER = {
+    'ACCESS_TOKEN_EXPIRE_SECONDS': 36000,
+    'SCOPES': {
+        'read': 'Read scope',
+        'write': 'Write scope',
+        'groups': 'Access to your groups',
+    }
+}
