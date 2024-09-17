@@ -33,12 +33,10 @@ class SalesOrderViewSet(viewsets.ModelViewSet):
         responses={200: SalesOrderSerializer(many=True)},
     )
     def list(self, request, *args, **kwargs):
-        queryset = self.get_queryset()
-        return cached_response(self, request, queryset, self.get_serializer_class(), 'sales_orders')
+        return cached_response(self, 'list', request, *args, **kwargs)
 
     def retrieve(self, request, *args, **kwargs):
-        obj = self.get_object()
-        return cached_response(self, request, obj, self.get_serializer_class(), 'sales_order', is_single_object=True)
+        return cached_response(self, 'retrieve', request, *args, **kwargs)
 
     def perform_create(self, serializer):
         """
