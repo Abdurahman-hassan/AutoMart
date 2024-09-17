@@ -24,8 +24,7 @@ class NotificationViewSet(viewsets.ReadOnlyModelViewSet):
         responses={200: NotificationSerializer(many=True)},
     )
     def list(self, request, *args, **kwargs):
-        queryset = self.get_queryset()
-        return cached_response(self, request, queryset, self.get_serializer_class(), 'notifications')
+        return cached_response(self, 'list', request, *args, **kwargs)
 
     @extend_schema(
         operation_id="Retrieve Notification",
@@ -33,8 +32,7 @@ class NotificationViewSet(viewsets.ReadOnlyModelViewSet):
         responses={200: NotificationSerializer},
     )
     def retrieve(self, request, *args, **kwargs):
-        obj = self.get_object()
-        return cached_response(self, request, obj, self.get_serializer_class(), 'notification', is_single_object=True)
+        return cached_response(self, 'retrieve', request, *args, **kwargs)
 
     def destroy(self, request, *args, **kwargs):
         obj = self.get_object()
